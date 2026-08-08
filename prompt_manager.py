@@ -187,6 +187,86 @@ def search_prompt():
         print("검색 결과가 없습니다.")
 
 
+def show_detail():
+    print("\n===== 프롬프트 상세 보기 =====")
+
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    show_list()
+
+    choice = input("상세히 볼 프롬프트 번호를 입력하세요: ").strip()
+
+    if not choice.isdigit():
+        print("잘못된 번호입니다.")
+        return
+
+    number = int(choice)
+
+    if number < 1 or number > len(prompts):
+        print("존재하지 않는 프롬프트 번호입니다.")
+        return
+
+    prompt = prompts[number - 1]
+
+    favorite = "⭐" if prompt["favorite"] else "없음"
+
+    print("\n===== 프롬프트 상세 정보 =====")
+    print(f"제목: {prompt['title']}")
+    print(f"카테고리: {prompt['category']}")
+    print(f"즐겨찾기: {favorite}")
+    print(f"내용: {prompt['content']}")
+
+
+def toggle_favorite():
+    print("\n===== 즐겨찾기 추가/해제 =====")
+
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    show_list()
+
+    choice = input("즐겨찾기를 변경할 프롬프트 번호를 입력하세요: ").strip()
+
+    if not choice.isdigit():
+        print("잘못된 번호입니다.")
+        return
+
+    number = int(choice)
+
+    if number < 1 or number > len(prompts):
+        print("존재하지 않는 프롬프트 번호입니다.")
+        return
+
+    prompt = prompts[number - 1]
+
+    prompt["favorite"] = not prompt["favorite"]
+
+    if prompt["favorite"]:
+        print("즐겨찾기에 추가되었습니다.")
+    else:
+        print("즐겨찾기에서 해제되었습니다.")
+
+
+def show_favorites():
+    print("\n===== 즐겨찾기 목록 =====")
+
+    found = False
+
+    for i, prompt in enumerate(prompts, 1):
+        if prompt["favorite"]:
+            print(
+                f"{i}. {prompt['title']} "
+                f"[{prompt['category']}] ⭐"
+            )
+            found = True
+
+    if not found:
+        print("즐겨찾기한 프롬프트가 없습니다.")
+
+
 def main():
     while True:
         show_menu()
@@ -209,13 +289,15 @@ def main():
             search_prompt()
 
         elif choice == "5":
-            print("프롬프트 상세 보기 기능은 준비 중입니다.")
+            show_detail()
 
         elif choice == "6":
-            print("즐겨찾기 기능은 준비 중입니다.")
+            toggle_favorite()
+            show_favorites()
 
         else:
             print("잘못된 번호입니다. 다시 선택해주세요.")
+
 
 
 if __name__ == "__main__":
