@@ -76,7 +76,7 @@ def add_prompt():
                 category = categories[number - 1]
                 break
 
-            elif number == len(categories) + 1:
+            if number == len(categories) + 1:
                 category = input("카테고리 입력: ").strip()
 
                 if category:
@@ -96,10 +96,26 @@ def add_prompt():
     print("프롬프트가 추가되었습니다.")
 
 
+def show_list():
+    print("\n===== 프롬프트 목록 =====")
+
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    for i, prompt in enumerate(prompts, 1):
+        favorite = " ⭐" if prompt["favorite"] else ""
+
+        print(
+            f"{i}. {prompt['title']} "
+            f"[{prompt['category']}]{favorite}"
+        )
+
+
 def main():
     while True:
         show_menu()
-        choice = input("메뉴를 선택하세요: ")
+        choice = input("메뉴를 선택하세요: ").strip()
 
         if choice == "0":
             print("프로그램을 종료합니다.")
@@ -109,7 +125,7 @@ def main():
             add_prompt()
 
         elif choice == "2":
-            print("프롬프트 목록 기능은 준비 중입니다.")
+            show_list()
 
         elif choice == "3":
             print("카테고리별 조회 기능은 준비 중입니다.")
