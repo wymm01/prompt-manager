@@ -31,6 +31,71 @@ def show_menu():
     print("0. 종료")
 
 
+def add_prompt():
+    print("\n===== 프롬프트 추가 =====")
+
+    while True:
+        title = input("제목: ").strip()
+
+        if title:
+            break
+
+        print("제목은 비어 있을 수 없습니다.")
+
+    while True:
+        content = input("내용: ").strip()
+
+        if content:
+            break
+
+        print("내용은 비어 있을 수 없습니다.")
+
+    categories = [
+        "텍스트 생성",
+        "이미지 생성",
+        "영상 생성",
+        "페르소나",
+        "자동화",
+        "기타"
+    ]
+
+    print("\n카테고리를 선택하세요.")
+
+    for i, category in enumerate(categories, 1):
+        print(f"{i}. {category}")
+
+    print(f"{len(categories) + 1}. 직접 입력")
+
+    while True:
+        category_choice = input("선택: ").strip()
+
+        if category_choice.isdigit():
+            number = int(category_choice)
+
+            if 1 <= number <= len(categories):
+                category = categories[number - 1]
+                break
+
+            elif number == len(categories) + 1:
+                category = input("카테고리 입력: ").strip()
+
+                if category:
+                    break
+
+        print("올바른 카테고리를 선택해주세요.")
+
+    new_prompt = {
+        "title": title,
+        "content": content,
+        "category": category,
+        "favorite": False
+    }
+
+    prompts.append(new_prompt)
+
+    print("프롬프트가 추가되었습니다.")
+
+
 def main():
     while True:
         show_menu()
@@ -39,18 +104,25 @@ def main():
         if choice == "0":
             print("프로그램을 종료합니다.")
             break
+
         elif choice == "1":
-            print("프롬프트 추가 기능은 준비 중입니다.")
+            add_prompt()
+
         elif choice == "2":
             print("프롬프트 목록 기능은 준비 중입니다.")
+
         elif choice == "3":
             print("카테고리별 조회 기능은 준비 중입니다.")
+
         elif choice == "4":
-            print("검색 기능은 준비 중입니다.")
+            print("프롬프트 검색 기능은 준비 중입니다.")
+
         elif choice == "5":
-            print("상세 보기 기능은 준비 중입니다.")
+            print("프롬프트 상세 보기 기능은 준비 중입니다.")
+
         elif choice == "6":
             print("즐겨찾기 기능은 준비 중입니다.")
+
         else:
             print("잘못된 번호입니다. 다시 선택해주세요.")
 
