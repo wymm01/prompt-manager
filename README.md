@@ -8,6 +8,7 @@ Python으로 만든 콘솔 기반 프롬프트 관리 프로그램입니다.
 ## 실행 방법
 
 터미널에서 다음 명령어를 실행합니다.
+```python prompt_manager.py``` (Windows 는 `py prompt_manager.py`)
 
 ## 주요 기능
 
